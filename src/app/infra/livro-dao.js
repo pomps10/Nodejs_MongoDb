@@ -6,25 +6,14 @@ class LivroDao {
 
     adiciona(livro) {
         return new Promise((resolve, reject) => {
-            this._db.run(`
-                INSERT INTO livros (
-                    titulo, 
-                    preco,
-                    descricao
-                ) values (?,?,?)
-                `,
-                [
-                    livro.titulo,
-                    livro.preco,
-                    livro.descricao
-                ],
+            this._db.create(livro,
                 function (err) {
                     if (err) {
                         console.log(err);
                         return reject('Não foi possível adicionar o livro!');
                     }
 
-                    resolve();
+                    return resolve();
                 }
             )
         });
@@ -32,27 +21,24 @@ class LivroDao {
 
     lista() {
         return new Promise((resolve, reject) => {
-            this._db.all(
-                'SELECT * FROM livros',
-                (erro, resultados) => {
-                    if (erro) return reject('Não foi possível listar os livros!');
-
-                    return resolve(resultados);
+            this._db.find((erro, usuario) => {
+                if (erro) {
+                        return reject('Não foi possível encontrar o usuário!');
+                    }
+                    
+                    return resolve(usuario);
                 }
             )
         });
+
     }
 
     buscaPorId(id) {
 
         return new Promise((resolve, reject) => {
-            this._db.get(
-                `
-                    SELECT *
-                    FROM livros
-                    WHERE id = ?
-                `,
-                [id],
+            this._db.findOne( {
+                _id: id
+            },
                 (erro, livro) => {
                     if (erro) {
                         return reject('Não foi possível encontrar o livro!');
@@ -63,6 +49,8 @@ class LivroDao {
         });
     }
 
+
+    //resta arrumar
     atualiza(livro) {
         return new Promise((resolve, reject) => {
             this._db.run(`
@@ -91,13 +79,7 @@ class LivroDao {
     remove(id) {
 
         return new Promise((resolve, reject) => {
-            this._db.get(
-                `
-                    DELETE 
-                    FROM livros
-                    WHERE id = ?
-                `,
-                [id],
+            this._db.findByIdAndRemove(id,
                 (erro) => {
                     if (erro) {
                         return reject('Não foi possível remover o livro!');

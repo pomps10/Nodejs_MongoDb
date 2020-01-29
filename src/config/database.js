@@ -9,29 +9,12 @@ mongoose.connect('mongodb+srv://felipe:cesar123@cluster0-noqrp.mongodb.net/prime
     console.log("Houve um erro ao se conectar ao MongoDB: " + err)
 })
 
+module.exports = mongoose;
+/*
 
-////TEMOS QUE DIVIDIR AS INSTANCIAÇÃO
-const livrosSchema = mongoose.Schema({
-    livro: {
-        type : String,
-        require: true
-    },
-    preco: {
-        type: Number,
-        require: true
-    },
-    descricao: {
-        type: String,
-        require: false
-    }
-})
 
-const usuarioSchema = mongoose.Schema({
-    email: String,
-    senha: String
-})
 
-var Livro = mongoose.model('livros', livrosSchema);
+
 
 Livro.find({
     livro: "teste2"
@@ -44,7 +27,6 @@ Livro.find({
 });
 
 
-module.exports = mongoose.model("livros", livrosSchema);
 
 const Usuario = mongoose.model("livros")
 
@@ -60,7 +42,7 @@ Usuario.find({
 
 
 
-/*
+
 new Usuario({
     livro: "teste2"
 }).save().then(() => {

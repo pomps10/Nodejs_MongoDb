@@ -5,7 +5,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 
 const UsuarioDao = require('../app/infra/usuario-dao');
-const db = require('./database');
+//const db = require('./database');
+const db = require('../app/modelos/schema-usuario');
 
 module.exports = (app) => {
 
@@ -19,7 +20,6 @@ module.exports = (app) => {
             const usuarioDao = new UsuarioDao(db);
             usuarioDao.buscaPorEmail(email)
                         .then(usuario => {
-                            console.log(usuario)
                             if (!usuario || senha != usuario.senha) {
                                 return done(null, false, {
                                     mensagem: 'Login e senha incorretos!'
