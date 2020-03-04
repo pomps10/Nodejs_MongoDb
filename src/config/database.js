@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://felipe:cesar123@cluster0-noqrp.mongodb.net/primeiro?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://felipe:teste123@cluster0-noqrp.mongodb.net/primeiro?retryWrites=true&w=majority', {
     useNewUrlParser: true
 }).then(() => {
     console.log("MongoDB Conectado...")
